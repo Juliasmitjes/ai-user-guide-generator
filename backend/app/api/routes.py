@@ -11,8 +11,9 @@ service = OpenAIService()
 async def generate_guide(request: GuideRequest):
 
     print(request)
+    result = await service.generate(request)
 
     return {
         "status": "success",
-        "received": request.model_dump()
+        "manual": result.get("manual")
     }

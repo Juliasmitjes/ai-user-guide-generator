@@ -136,7 +136,8 @@ export default function Home() {
 
     console.log(data);
 
-    setGenerated(data);
+    // backend returns { status: "success", manual: "..." }
+    setGenerated(data.manual ?? JSON.stringify(data, null, 2));
 
     showToast.success("Work instruction generated! 🎉", {
       duration: 4000, // 4 seconds
