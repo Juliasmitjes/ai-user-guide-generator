@@ -37,6 +37,7 @@ interface UploadedImage {
   id: string;
   name: string;
   dataUrl: string;
+  file: File;
 }
 
  function escapeHtml(s: string) {
@@ -51,7 +52,6 @@ export default function Home() {
   const [environment, setEnvironment] = useState<string>("");
   const [task, setTask] = useState("");
   const [language, setLanguage] = useState("English");
-  const [screenshots, setScreenshots] = useState<File[]>([]);
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [generated, setGenerated] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -69,6 +69,7 @@ export default function Home() {
             id: `${file.name}-${Date.now()}-${Math.random()}`,
             name: file.name,
             dataUrl: reader.result as string,
+            file
           },
         ]);
       };
@@ -80,63 +81,34 @@ export default function Home() {
     setImages((prev) => prev.filter((img) => img.id !== id));
   };
 
-  const buildGuide = () => {
-    // Placeholder generator — real AI will be plugged in later.
-    const steps = images.length
-      ? images.map(
-          (img, i) =>
-            `Step ${i + 1}: Refer to screenshot "${img.name}". Follow the on-screen prompts and confirm your action before proceeding.`,
-        )
-      : [
-          "Step 1: Log in to the environment using your organisation credentials.",
-          "Step 2: Navigate to the relevant module from the main menu.",
-          "Step 3: Complete the required fields and save your changes.",
-        ];
-
-    return [
-      `Work Instruction`,
-      ``,
-      `Role: ${discipline}`,
-      `Environment: ${environment}`,
-      `Generated: ${new Date().toLocaleString("en-GB")}`,
-      ``,
-      `Purpose`,
-      `This guide explains how a ${discipline.toLowerCase()} performs common tasks in the ${environment.toLowerCase()} environment.`,
-      ``,
-      `Instructions`,
-      ...steps,
-      ``,
-      `Notes`,
-      `Contact your team lead if any step does not match what you see on screen.`,
-    ].join("\n");
-  };
-
   const handleGenerate = async () => {
     if (!discipline || !environment) {
       showToast.error("Please select a discipline and a work environment.");
       return;
     }
     setLoading(true);
-    try {
-    const response = await fetch("http://127.0.0.1:8000/generate-guide", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            discipline,
-            environment,
-            task,
-            language,
-            screenshots
-        }),
+    try { const formData = new FormData();
+
+    formData.append("discipline", discipline);
+    formData.append("environment", environment);
+    formData.append("task", task);
+    formData.append("language", language);
+
+    images.forEach((image) => {
+      formData.append("screenshots", image.file);
     });
+
+    const response = await fetch(
+      "http://127.0.0.1:8000/generate-guide",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     const data = await response.json();
 
     console.log(data);
-
-    // backend returns { status: "success", manual: "..." }
     setGenerated(data.manual ?? JSON.stringify(data, null, 2));
 
     showToast.success("Work instruction generated! 🎉", {
