@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Sparkles, Upload, FileText, FileDown, X, Loader2 } from "lucide-react";
+import { Upload, FileText, FileDown, X, Loader2 } from "lucide-react";
 import jsPDF from "jspdf";
 import { Button } from "@/components/button";
 import { Label } from "@/components/label";
@@ -14,8 +14,6 @@ import {
 } from "@/components/select";
 import { showToast } from "nextjs-toast-notify";
 
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const DISCIPLINES = [
   "Doctor",
@@ -51,6 +49,9 @@ export default function Home() {
 
   const [discipline, setDiscipline] = useState<string>("");
   const [environment, setEnvironment] = useState<string>("");
+  const [task, setTask] = useState("");
+  const [language, setLanguage] = useState("English");
+  const [screenshots, setScreenshots] = useState<File[]>([]);
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [generated, setGenerated] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -110,16 +111,34 @@ export default function Home() {
     ].join("\n");
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!discipline || !environment) {
       showToast.error("Please select a discipline and a work environment.");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setGenerated(buildGuide());
-      setLoading(false);
-      showToast.success("Draft work instruction generated! 🎉", {
+    try {
+    const response = await fetch("http://127.0.0.1:8000/generate-guide", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            discipline,
+            environment,
+            task,
+            language,
+            screenshots
+        }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    setGenerated(data);
+
+    showToast.success("Work instruction generated! 🎉", {
       duration: 4000, // 4 seconds
       position: "top-right",
       transition: "bounceIn",
@@ -127,10 +146,14 @@ export default function Home() {
       sound: true,
       progress: true
     });
-    }, 400);
-
-    return <button onClick={handleGenerate}>Show Toast</button>;
-  };
+}
+catch (error) {
+    console.error(error);
+    showToast.error("Something went wrong.");
+}
+finally {
+    setLoading(false);
+}};
 
   const downloadPdf = () => {
     if (!generated) return;

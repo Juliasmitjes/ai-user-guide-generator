@@ -10,4 +10,9 @@ service = OpenAIService()
 @router.post("/generate-guide")
 async def generate_guide(request: GuideRequest):
 
-    return await service.generate(request)
+    print(request)
+
+    return {
+        "status": "success",
+        "received": request.model_dump()
+    }

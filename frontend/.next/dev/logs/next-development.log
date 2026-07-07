@@ -1,2 +1,13 @@
-{"timestamp":"00:00:00.603","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:03.203","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:01.104","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:03.388","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:10.360","source":"Server","level":"WARN","message":"⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"192.168.1.89\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['192.168.1.89'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins"}
+{"timestamp":"00:04:08.460","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:32.521","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:21:29.911","source":"Server","level":"LOG","message":"✓ Compiled in 107ms"}
+{"timestamp":"00:21:35.946","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\""}
+{"timestamp":"00:21:35.948","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m"}
+{"timestamp":"00:21:35.949","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"00:21:44.861","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:21:47.921","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\""}
+{"timestamp":"00:21:47.923","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m"}
+{"timestamp":"00:21:47.924","source":"Browser","level":"ERROR","message":"{}"}
