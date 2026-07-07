@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 
 class GuideRequest(BaseModel):
-    topic: str
-    audience: str
+    discipline: str
+    environment: str
+    task: str
     language: str = "English"
+
+    screenshots: list[str] = []
