@@ -9,11 +9,6 @@ Discipline:
 Environment:
 {request.environment}
 
-Task:
-{request.task}
-
-Language:
-{request.language}
 
 The guide should contain:
 

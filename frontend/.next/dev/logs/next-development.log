@@ -10,3 +10,13 @@
 {"timestamp":"00:02:17.606","source":"Browser","level":"ERROR","message":"{}"}
 {"timestamp":"00:02:17.607","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\" \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
 {"timestamp":"00:02:17.608","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"00:06:35.184","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:06:35.274","source":"Browser","level":"LOG","message":"{\"discipline\":\"Data engineer\",\"environment\":\"Client portal\",\"manual\":\"OpenAI response will appear here.\",\"screenshots\":[\"07a5dc8f-1c1d-4efe-b6ba-116a3315e63a.jpg\"],\"status\":\"success\"}"}
+{"timestamp":"00:07:12.791","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:17.808","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:07:17.861","source":"Browser","level":"LOG","message":"{\"detail\":[{\"input\":null,\"loc\":[\"body\",\"screenshots\"],\"msg\":\"Field required\",\"type\":\"missing\"}]}"}
+{"timestamp":"00:07:37.644","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:07:37.725","source":"Browser","level":"LOG","message":"{\"discipline\":\"Doctor\",\"environment\":\"Planning wizard\",\"manual\":\"OpenAI response will appear here.\",\"screenshots\":[\"07a5dc8f-1c1d-4efe-b6ba-116a3315e63a.jpg\"],\"status\":\"success\"}"}
+{"timestamp":"00:07:43.008","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:50.311","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:07:50.408","source":"Browser","level":"LOG","message":"{\"discipline\":\"Data engineer\",\"environment\":\"Planning wizard\",\"manual\":\"OpenAI response will appear here.\",\"screenshots\":[\"07a5dc8f-1c1d-4efe-b6ba-116a3315e63a.jpg\"],\"status\":\"success\"}"}
