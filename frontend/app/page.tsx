@@ -50,8 +50,6 @@ export default function Home() {
 
   const [discipline, setDiscipline] = useState<string>("");
   const [environment, setEnvironment] = useState<string>("");
-  const [task, setTask] = useState("");
-  const [language, setLanguage] = useState("English");
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [generated, setGenerated] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -82,6 +80,9 @@ export default function Home() {
   };
 
   const handleGenerate = async () => {
+    console.log("Generate clicked");
+
+
     if (!discipline || !environment) {
       showToast.error("Please select a discipline and a work environment.");
       return;
@@ -91,9 +92,6 @@ export default function Home() {
 
     formData.append("discipline", discipline);
     formData.append("environment", environment);
-    formData.append("task", task);
-    formData.append("language", language);
-
     images.forEach((image) => {
       formData.append("screenshots", image.file);
     });
