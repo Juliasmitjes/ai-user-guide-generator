@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
 from app.prompts.guide_prompt import build_prompt
 
@@ -14,15 +15,17 @@ client = genai.Client(
 
 class GeminiService:
 
-     async def generate(self, request):
+    async def generate(self, request):
 
         prompt = build_prompt(request)
 
-        response = await client.models.generate_content(
+        response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt,
-            temperature=0.7,
-            max_output_tokens=1000
+            config=types.GenerateContentConfig(
+                temperature=0.7,
+                max_output_tokens=1000,
+            ),
         )
 
         return {

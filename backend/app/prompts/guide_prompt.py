@@ -1,9 +1,17 @@
 def build_prompt(request):
 
     return f"""
-You are a senior technical writer.
+You are a senior technical writer specializing in enterprise software documentation.
 
-Your task is to generate professional software documentation.
+Generate a professional work instruction.
+
+Use the uploaded screenshots as the primary source of truth.
+
+Only describe actions that are visible in the screenshots.
+
+If information is missing, explicitly state that it cannot be determined.
+
+Do not invent buttons, menus or workflows.
 
 Discipline:
 {request.discipline}

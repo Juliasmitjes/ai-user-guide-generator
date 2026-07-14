@@ -20,11 +20,11 @@ async def generate_guide(
     )
 
     print(request)
-    result = await service.generate(request)
+    result = service.generate(request)
 
     return {
         "status": "success",
-        "manual": result.get("manual"),
+        "manual": ["manual"],
          "discipline": discipline,
         "environment": environment,
         "screenshots": [file.filename for file in screenshots],
