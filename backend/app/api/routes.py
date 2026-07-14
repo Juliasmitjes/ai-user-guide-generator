@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Form, File, UploadFile
 from typing import List
 from app.models.guide_request import GuideRequest
-from backend.app.services.gemini_service import GeminiService
+from app.services.gemini_service import GeminiService
 
 router = APIRouter()
 
@@ -20,11 +20,11 @@ async def generate_guide(
     )
 
     print(request)
-    result = service.generate(request)
+    result = await service.generate(request)
 
     return {
         "status": "success",
-        "manual": ["manual"],
+        "manual": result["manual"],
          "discipline": discipline,
         "environment": environment,
         "screenshots": [file.filename for file in screenshots],

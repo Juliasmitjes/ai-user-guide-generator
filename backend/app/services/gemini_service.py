@@ -8,6 +8,8 @@ from app.prompts.guide_prompt import build_prompt
 
 load_dotenv()
 
+print(os.getenv("GEMINI_API_KEY"))
+
 client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY")
 )
@@ -20,13 +22,15 @@ class GeminiService:
         prompt = build_prompt(request)
 
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-flash-latest",
             contents=prompt,
             config=types.GenerateContentConfig(
                 temperature=0.7,
-                max_output_tokens=1000,
+                max_output_tokens=4000,
             ),
         )
+
+        print(response.text)
 
         return {
             "manual": response.text

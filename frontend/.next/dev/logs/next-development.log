@@ -1,8 +1,23 @@
-{"timestamp":"00:00:01.315","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:02.821","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:17.899","source":"Browser","level":"LOG","message":"Generate clicked"}
-{"timestamp":"00:00:17.982","source":"Browser","level":"LOG","message":"{\"detail\":[{\"input\":null,\"loc\":[\"body\",\"screenshots\"],\"msg\":\"Field required\",\"type\":\"missing\"}]}"}
-{"timestamp":"00:00:24.138","source":"Browser","level":"LOG","message":"Generate clicked"}
-{"timestamp":"00:00:27.433","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\""}
-{"timestamp":"00:00:27.435","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m"}
-{"timestamp":"00:00:27.436","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"00:00:00.691","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:01.291","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:11.142","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:17.379","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\""}
+{"timestamp":"00:00:17.380","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m"}
+{"timestamp":"00:00:17.380","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:00:17.380","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"00:02:20.747","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:09:45.351","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:09:51.458","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:09:51.491","source":"Browser","level":"LOG","message":"{\"discipline\":\"Doctor's assistant\",\"environment\":\"Client portal\",\"manual\":[\"manual\"],\"screenshots\":[\"07a5dc8f-1c1d-4efe-b6ba-116a3315e63a.jpg\"],\"status\":\"success\"}"}
+{"timestamp":"00:15:17.754","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:15:17.800","source":"Browser","level":"LOG","message":"{\"discipline\":\"Data engineer\",\"environment\":\"Client portal\",\"manual\":[\"manual\"],\"screenshots\":[\"07a5dc8f-1c1d-4efe-b6ba-116a3315e63a.jpg\",\"Headshot.jpeg\"],\"status\":\"success\"}"}
+{"timestamp":"00:17:56.001","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:18:01.445","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:18:01.795","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"00:18:01.801","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\" \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"00:18:01.801","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"00:31:28.771","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:31:35.175","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"00:31:35.751","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"00:31:35.752","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\" \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"00:31:35.752","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
