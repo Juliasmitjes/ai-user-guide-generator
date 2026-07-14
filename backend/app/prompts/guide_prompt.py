@@ -1,20 +1,27 @@
 def build_prompt(request):
 
     return f"""
-Create a professional user guide.
+You are a senior technical writer.
+
+Your task is to generate professional software documentation.
 
 Discipline:
 {request.discipline}
 
-Environment:
+Software environment:
 {request.environment}
 
+Generate the following sections:
 
-The guide should contain:
+1. Title
+2. Purpose
+3. Prerequisites
+4. Procedure
+5. Tips
+6. FAQ
 
-- Introduction
-- Step-by-step instructions
-- Tips
-- Warnings
-- Conclusion
+Write in clear business English.
+
+Do not invent functionality.
+Only describe what is provided.
 """
