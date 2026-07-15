@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Form, File, UploadFile
 from typing import List
 from app.models.guide_request import GuideRequest
-from app.services.gemini_service import GeminiService
+from app.services.openai_service import OpenAIService
 
 router = APIRouter()
 
-service = GeminiService()
+service = OpenAIService()
 
 
 @router.post("/generate-guide")
