@@ -20,7 +20,8 @@ async def generate_guide(
     )
 
     print(request)
-    result = await service.generate(request)
+    result = await service.generate(request, 
+    screenshots)
 
     return {
         "status": "success",

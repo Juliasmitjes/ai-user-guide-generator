@@ -11,13 +11,13 @@ load_dotenv()
 print(os.getenv("GEMINI_API_KEY"))
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY") 
 )
 
 
 class GeminiService:
 
-    async def generate(self, request):
+    async def generate(self, request, screenshots):
 
         prompt = build_prompt(request)
 
