@@ -21,19 +21,25 @@ class OpenAIService:
 
         prompt = build_prompt(request)
 
-        contents = [
-            {
-                "type": "input_text",
-                "text": prompt,
-            }
-        ]
+        contents = []
+
+        contents.append({
+            "type": "message",
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_text",
+                    "text": prompt,
+                }
+            ]
+        })
 
         for screenshot in screenshots:
             image_bytes = await screenshot.read()
 
             base64_image = base64.b64encode(image_bytes).decode("utf-8")
 
-            contents.append(
+            contents[0]["content"].append(
                 {
                     "type": "input_image",
                     "image_url": f"data:{screenshot.content_type};base64,{base64_image}",

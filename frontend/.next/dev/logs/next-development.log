@@ -12,3 +12,8 @@
 {"timestamp":"01:05:28.459","source":"Browser","level":"ERROR","message":"{}"}
 {"timestamp":"01:05:28.462","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\" \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
 {"timestamp":"01:05:28.463","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"01:23:36.867","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"01:24:15.314","source":"Browser","level":"LOG","message":"Generate clicked"}
+{"timestamp":"01:24:23.195","source":"Browser","level":"ERROR","message":"{}"}
+{"timestamp":"01:24:23.196","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mTypeError: NetworkError when attempting to fetch resource.\\u001b[39m\" \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
+{"timestamp":"01:24:23.199","source":"Browser","level":"ERROR","message":"\u001b[31mTypeError: NetworkError when attempting to fetch resource.\u001b[39m \"\\u001b[2m(file:///home/juliasmitjes/Documents/Web development (vsc)\\u001b[22m\""}
