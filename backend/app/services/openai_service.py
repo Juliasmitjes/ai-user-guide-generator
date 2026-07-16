@@ -47,10 +47,10 @@ class OpenAIService:
             )
 
         print(contents)
-        print(f"Aantal onderdelen: {len(contents)}")
+        print(f"Aantal content-items: {len(contents[0]['content'])}")
 
         response = client.responses.create(
-            model="gpt-4.1",
+            model="gpt-4.1-nano",
             input=cast(ResponseInputParam, contents),
         )
 
