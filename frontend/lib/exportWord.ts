@@ -47,9 +47,7 @@ export function exportWord(
       continue;
     }
 
-    //---------------------------------
-    // HOOFDSTUK
-    //---------------------------------
+// hoofdstuk
 
     if (line.startsWith("# ")) {
       closeList();
@@ -62,9 +60,7 @@ export function exportWord(
       continue;
     }
 
-    //---------------------------------
-    // SUBTITEL
-    //---------------------------------
+// subtitel
 
     if (line.startsWith("## ")) {
       closeList();
@@ -76,10 +72,8 @@ export function exportWord(
       continue;
     }
 
-    //---------------------------------
-    // STAP
-    //---------------------------------
 
+// stappen
     const stepLabel = language === "nl" ? "Stap" : "Step";
     const step = line.match(/^(\d+)\.\s*(.*)$/);
 
@@ -103,9 +97,8 @@ export function exportWord(
       continue;
     }
 
-    //---------------------------------
-    // BULLETS
-    //---------------------------------
+
+// bulletpoints
 
     if (line.startsWith("- ")) {
       if (!inList) {
@@ -118,10 +111,8 @@ export function exportWord(
       continue;
     }
 
-    //---------------------------------
-    // NORMALE TEKST
-    //---------------------------------
 
+// tekst
     closeList();
 
     body += `<p>${escapeHtml(line)}</p>`;
@@ -129,9 +120,8 @@ export function exportWord(
 
   closeList();
 
-  //---------------------------------
-  // SCREENSHOTS
-  //---------------------------------
+
+// screenshots
 
   let screenshots = "";
 
@@ -164,9 +154,8 @@ export function exportWord(
     screenshots += "</div>";
   }
 
-  //---------------------------------
-  // HTML
-  //---------------------------------
+
+// html + css
 
   const html = `
 <!DOCTYPE html>
@@ -303,17 +292,32 @@ li{
     page-break-before:always;
 }
 
+.image-page{
+
+    page-break-before:always;
+    text-align:center;
+}
+
 .image-page img{
 
     display:block;
 
-    width:100%;
+    margin:10px auto;
 
+    max-width:16cm;
+    width:auto;
     height:auto;
 
     border:1px solid #CBD5E1;
+}
 
-    margin-top:10px;
+.caption{
+
+    width:16cm;
+    margin:8px auto 0;
+    text-align:center;
+    color:#64748b;
+    font-size:9pt;
 }
 
 .caption{
