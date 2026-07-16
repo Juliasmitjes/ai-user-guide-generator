@@ -133,76 +133,168 @@ finally {
     setLoading(false);
 }};
 
-  const downloadPdf = () => {
+    const downloadPdf = () => {
     if (!generated) return;
+
     const doc = new jsPDF({ unit: "pt", format: "a4" });
+
     const marginX = 48;
     let y = 64;
+
     const pageHeight = doc.internal.pageSize.getHeight();
     const maxWidth = doc.internal.pageSize.getWidth() - marginX * 2;
 
+    const documentTitle =
+      language === "nl" ? "Werkinstructie" : "Work Instruction";
+
+    const screenshotError =
+      language === "nl"
+        ? "(Screenshot kon niet worden toegevoegd)"
+        : "(Screenshot could not be embedded)";
+
+    const fileName =
+      language === "nl"
+        ? `werkinstructie-${discipline}-${environment}.pdf`
+        : `work-instruction-${discipline}-${environment}.pdf`;
+
+    // Titel
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("Work Instruction", marginX, y);
+    doc.text(documentTitle, marginX, y);
     y += 28;
 
+    // Inhoud
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
 
-    const lines = generated.split("\n").slice(2); // skip title
+
+    const lines = generated.replace(/^# .*\n?/m, "").split("\n");
+
     lines.forEach((line) => {
       const wrapped = doc.splitTextToSize(line || " ", maxWidth);
+
       wrapped.forEach((w: string) => {
         if (y > pageHeight - 60) {
           doc.addPage();
           y = 64;
         }
+
         doc.text(w, marginX, y);
         y += 16;
       });
     });
 
+    // Screenshots toevoegen
     images.forEach((img) => {
       doc.addPage();
       y = 48;
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.text(img.name, marginX, y);
       y += 16;
+
       try {
         const format = img.dataUrl.includes("image/png") ? "PNG" : "JPEG";
         doc.addImage(img.dataUrl, format, marginX, y, maxWidth, 0);
       } catch {
-        doc.text("(Screenshot could not be embedded)", marginX, y + 20);
+        doc.setFont("helvetica", "normal");
+        doc.text(screenshotError, marginX, y + 20);
       }
     });
 
-    doc.save(`work-instruction-${discipline}-${environment}.pdf`.replace(/\s+/g, "-").toLowerCase());
+    doc.save(fileName.replace(/\s+/g, "-").toLowerCase());
   };
 
   const downloadWord = () => {
     if (!generated) return;
-    const bodyHtml = generated
+
+    const documentTitle =
+      language === "nl" ? "Werkinstructie" : "Work Instruction";
+
+    const fileName =
+      language === "nl"
+        ? `werkinstructie-${discipline}-${environment}.doc`
+        : `work-instruction-${discipline}-${environment}.doc`;
+
+    // Verwijder de eerste AI-titel (# ...)
+    const content = generated.replace(/^# .*\n?/m, "");
+
+    const bodyHtml = content
       .split("\n")
-      .map((line) => (line ? `<p>${escapeHtml(line)}</p>` : "<p>&nbsp;</p>"))
-      .join("");
-    const imagesHtml = images
-      .map(
-        (img) =>
-          `<h3>${escapeHtml(img.name)}</h3><img src="${img.dataUrl}" style="max-width:600px;" />`,
+      .map((line) =>
+        line.trim()
+          ? `<p>${escapeHtml(line)}</p>`
+          : "<p>&nbsp;</p>"
       )
       .join("");
-    const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Work Instruction</title></head><body style="font-family:Calibri,Arial,sans-serif;">${bodyHtml}${imagesHtml}</body></html>`;
+
+    const imagesHtml = images
+      .map(
+        (img) => `
+          <h2>${escapeHtml(img.name)}</h2>
+          <p>
+            <img src="${img.dataUrl}" style="max-width:600px;height:auto;" />
+          </p>
+        `
+      )
+      .join("");
+
+    const html = `
+  <!DOCTYPE html>
+  <html xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns="http://www.w3.org/TR/REC-html40">
+
+  <head>
+  <meta charset="utf-8">
+  <title>${documentTitle}</title>
+
+  <style>
+  body{
+      font-family:Calibri,Arial,sans-serif;
+      font-size:11pt;
+      line-height:1.4;
+  }
+
+  h1{
+      font-size:22pt;
+  }
+
+  h2{
+      margin-top:24px;
+  }
+
+  img{
+      max-width:600px;
+      height:auto;
+  }
+  </style>
+
+  </head>
+
+  <body>
+
+  <h1>${documentTitle}</h1>
+
+  ${bodyHtml}
+
+  ${imagesHtml}
+
+  </body>
+  </html>`;
+
     const blob = new Blob(["\ufeff", html], {
       type: "application/msword",
     });
+
     const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
     a.href = url;
-    a.download = `work-instruction-${discipline}-${environment}.doc`
-      .replace(/\s+/g, "-")
-      .toLowerCase();
+    a.download = fileName.replace(/\s+/g, "-").toLowerCase();
     a.click();
+
     URL.revokeObjectURL(url);
   };
 

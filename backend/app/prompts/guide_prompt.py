@@ -10,8 +10,8 @@ IMPORTANT RULES
 - The screenshots are the primary source of truth.
 - Describe only what is actually visible.
 - Never invent buttons, menus, fields, workflows or system behaviour.
-- If something is not visible, explicitly write:
-  "Not visible in the provided screenshots."
+- If information is not visible in the screenshots, explicitly state that it is not visible.
+- Always use the selected language.
 - Do not assume what happens after a click unless it is shown.
 - Do not describe background knowledge or software features that cannot be observed.
 - Use the screenshots in chronological order.
