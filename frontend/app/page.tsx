@@ -15,8 +15,8 @@ import {
 import { showToast } from "nextjs-toast-notify";
 
 const LANGUAGES = [
-  { value: "English", label: "English" },
-  { value: "Dutch", label: "Dutch" }]
+  { value: "en", label: "English" },
+  { value: "nl", label: "Dutch" }]
 
 const DISCIPLINES = [
   "Doctor",

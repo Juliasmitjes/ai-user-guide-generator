@@ -66,9 +66,15 @@ Provide at most three questions.
 
 Only answer questions that can be answered from the screenshots.
 
+Language:
+{request.language}
+
+
 Formatting rules
 
-- Write in clear business English.
+- Write the entire document in the selected language.
+- Use professional terminology.
+- Do not mix languages.
 - Use Markdown headings.
 - Keep the language concise and professional.
 - Do not repeat information.

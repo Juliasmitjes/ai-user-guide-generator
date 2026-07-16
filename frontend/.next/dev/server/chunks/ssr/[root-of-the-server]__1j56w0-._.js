@@ -354,11 +354,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$nextjs$2d$to
 ;
 const LANGUAGES = [
     {
-        value: "English",
+        value: "en",
         label: "English"
     },
     {
-        value: "Dutch",
+        value: "nl",
         label: "Dutch"
     }
 ];

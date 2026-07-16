@@ -377,11 +377,11 @@ var _s = __turbopack_context__.k.signature();
 ;
 const LANGUAGES = [
     {
-        value: "English",
+        value: "en",
         label: "English"
     },
     {
-        value: "Dutch",
+        value: "nl",
         label: "Dutch"
     }
 ];
