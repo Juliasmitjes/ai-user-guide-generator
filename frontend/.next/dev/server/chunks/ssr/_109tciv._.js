@@ -12,10 +12,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const metadata = {
-    title: "Work instructions generator",
+    title: "Work instruction generator",
     description: "Generate role-specific work instructions from screenshots for your organisation's tools.",
     openGraph: {
-        title: "Work instructions generator",
+        title: "Work instruction generator",
         description: "Generate role-specific work instructions from screenshots for your organisation's tools.",
         type: "website"
     }

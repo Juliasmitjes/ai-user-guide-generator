@@ -21,7 +21,6 @@ async def generate_guide(
         environment=environment,
     )
 
-    print(request)
     result = await service.generate(request, 
     screenshots)
 
