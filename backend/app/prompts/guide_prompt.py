@@ -15,6 +15,7 @@ IMPORTANT RULES
 - Do not assume what happens after a click unless it is shown.
 - Do not describe background knowledge or software features that cannot be observed.
 - Use the screenshots in chronological order.
+- The Markdown headings (# and ##) must also be written in the selected language.
 
 Context
 
@@ -23,6 +24,9 @@ Discipline:
 
 Software environment:
 {request.environment}
+
+Language:
+{request.language}
 
 Create the document using the following structure.
 
@@ -39,6 +43,7 @@ Explain the goal of the demonstrated process.
 List only prerequisites that are visible or explicitly provided.
 If none are visible, write:
 - None visible.
+Translate the title "Prerequisites" into "Voorwaarden" if the selected language is Dutch.
 
 # Procedure
 
@@ -65,9 +70,6 @@ If none exist, write:
 Provide at most three questions.
 
 Only answer questions that can be answered from the screenshots.
-
-Language:
-{request.language}
 
 
 Formatting rules

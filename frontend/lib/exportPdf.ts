@@ -6,7 +6,7 @@ type ImageType = {
   dataUrl: string;
 };
 
-export function exportPdf(
+export async function exportPdf(
   generated: string,
   images: ImageType[],
   language: string,
@@ -67,7 +67,7 @@ export function exportPdf(
 
   lines.forEach((line) => {
     const trimmed = line.trim();
-    
+
 
     // H1
 
@@ -141,22 +141,42 @@ export function exportPdf(
 // nummering
 
     if (/^\d+\./.test(trimmed)) {
-      newPageIfNeeded(24);
+    newPageIfNeeded(100);
 
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(theme.secondary);
+    const number = trimmed.match(/^\d+/)?.[0] ?? "";
 
-      const wrapped = doc.splitTextToSize(
-        trimmed,
-        contentWidth
-      );
+    const title =
+        language === "nl"
+        ? `Stap ${number}`
+        : `Step ${number}`;
 
-      wrapped.forEach((w: string) => {
-        doc.text(w, margin, y);
-        y += 18;
-      });
+    const text = trimmed.replace(/^\d+\.\s*/, "");
 
-      return;
+    // titel
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(theme.secondary);
+
+    doc.text(title, margin, y);
+
+    y += 22;
+
+    // tekst
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(theme.text);
+
+    const wrapped = doc.splitTextToSize(text, contentWidth);
+
+    wrapped.forEach((line: string) => {
+        newPageIfNeeded();
+        doc.text(line, margin, y);
+        y += 15;
+    });
+
+    y += 10;
+
+    return;
     }
 
 
@@ -191,61 +211,103 @@ export function exportPdf(
 
  // screenshots
 
-  images.forEach((img, index) => {
-    doc.addPage();
+    function getImageSize(
+        dataUrl: string
+        ): Promise<{ width: number; height: number }> {
+        return new Promise((resolve) => {
+            const image = new Image();
 
-    let imgY = 60;
+            image.onload = () => {
+            resolve({
+                width: image.width,
+                height: image.height,
+            });
+            };
 
-    doc.setTextColor(theme.primary);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
+            image.src = dataUrl;
+        });
+        }
 
-    doc.text(
-      `${
-        language === "nl"
-          ? "Screenshot"
-          : "Screenshot"
-      } ${index + 1}`,
-      margin,
-      imgY
-    );
+        for (let index = 0; index < images.length; index++) {
+        const img = images[index];
 
-    imgY += 20;
+        doc.addPage();
 
-    doc.setDrawColor(theme.border);
-    doc.setLineWidth(1);
+        let imgY = 60;
 
-    const imageWidth = contentWidth;
-    const imageHeight = 420;
+        doc.setTextColor(theme.primary);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
 
-    doc.rect(
-      margin,
-      imgY,
-      imageWidth,
-      imageHeight
-    );
+        doc.text(
+            `Screenshot ${index + 1}`,
+            margin,
+            imgY
+        );
 
-    try {
-      doc.addImage(
-        img.dataUrl,
-        img.dataUrl.includes("png")
-          ? "PNG"
-          : "JPEG",
-        margin + 5,
-        imgY + 5,
-        imageWidth - 10,
-        imageHeight - 10
-      );
-    } catch {
-      doc.text(
-        language === "nl"
-          ? "Afbeelding kon niet worden toegevoegd."
-          : "Image could not be embedded.",
-        margin,
-        imgY + 30
-      );
-    }
-  });
+        imgY += 20;
+
+        try {
+            const { width, height } = await getImageSize(img.dataUrl);
+
+            const maxWidth = contentWidth;
+            const maxHeight = pageHeight - 170;
+
+            const scale = Math.min(
+            maxWidth / width,
+            maxHeight / height
+            );
+
+            const imageWidth = width * scale;
+            const imageHeight = height * scale;
+
+            const x = margin + (contentWidth - imageWidth) / 2;
+
+            doc.setDrawColor(theme.border);
+            doc.rect(
+            x,
+            imgY,
+            imageWidth,
+            imageHeight
+            );
+
+            doc.addImage(
+            img.dataUrl,
+            img.dataUrl.includes("png") ? "PNG" : "JPEG",
+            x,
+            imgY,
+            imageWidth,
+            imageHeight
+            );
+
+            imgY += imageHeight + 20;
+
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(10);
+            doc.setTextColor(120);
+
+            doc.text(
+            img.name,
+            pageWidth / 2,
+            imgY,
+            {
+                align: "center",
+            }
+            );
+        } catch {
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.setTextColor(theme.text);
+
+            doc.text(
+            language === "nl"
+                ? "Afbeelding kon niet worden toegevoegd."
+                : "Image could not be embedded.",
+            margin,
+            imgY + 30
+            );
+        }
+        }
 
 
   // footer

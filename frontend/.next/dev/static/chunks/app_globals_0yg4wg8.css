@@ -824,6 +824,10 @@
     color: var(--secondary-foreground);
   }
 
+  .italic {
+    font-style: italic;
+  }
+
   .underline-offset-4 {
     text-underline-offset: 4px;
   }
