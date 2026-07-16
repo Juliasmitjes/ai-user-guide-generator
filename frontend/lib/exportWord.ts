@@ -20,61 +20,91 @@ export function exportWord(
   if (!generated) return;
 
   const documentTitle =
-    language === "nl"
-      ? "Werkinstructie"
-      : "Work Instruction";
+    language === "nl" ? "Werkinstructie" : "Work Instruction";
 
   const fileName =
     language === "nl"
       ? `werkinstructie-${discipline}-${environment}.doc`
       : `work-instruction-${discipline}-${environment}.doc`;
 
-
-// html
-
-  let body = "";
-
   const lines = generated.split("\n");
 
+  let body = "";
   let inList = false;
 
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
+  const closeList = () => {
+    if (inList) {
+      body += "</ul>";
+      inList = false;
+    }
+  };
 
-    if (line === "") {
-      if (inList) {
-        body += "</ul>";
-        inList = false;
-      }
+  for (const raw of lines) {
+    const line = raw.trim();
 
-      body += "<br>";
+    if (!line) {
+      closeList();
       continue;
     }
 
-    // H1
+    //---------------------------------
+    // HOOFDSTUK
+    //---------------------------------
+
     if (line.startsWith("# ")) {
-      if (inList) {
-        body += "</ul>";
-        inList = false;
-      }
+      closeList();
 
-      body += `<h1>${escapeHtml(line.substring(2))}</h1>`;
+      body += `
+      <div class="chapter">
+          <h1>${escapeHtml(line.substring(2))}</h1>
+      `;
+
       continue;
     }
 
-    // H2
+    //---------------------------------
+    // SUBTITEL
+    //---------------------------------
+
     if (line.startsWith("## ")) {
-      if (inList) {
-        body += "</ul>";
-        inList = false;
-      }
+      closeList();
 
-      body += `<h2>${escapeHtml(line.substring(3))}</h2>`;
+      body += `
+      <h2>${escapeHtml(line.substring(3))}</h2>
+      `;
+
       continue;
     }
 
+    //---------------------------------
+    // STAP
+    //---------------------------------
 
-// bulletpoints
+    const step = line.match(/^(\d+)\.\s*(.*)$/);
+
+    if (step) {
+      closeList();
+
+      body += `
+      <div class="step">
+
+          <div class="step-number">
+              Stap ${step[1]}
+          </div>
+
+          <div class="step-title">
+              ${escapeHtml(step[2])}
+          </div>
+
+      </div>
+      `;
+
+      continue;
+    }
+
+    //---------------------------------
+    // BULLETS
+    //---------------------------------
 
     if (line.startsWith("- ")) {
       if (!inList) {
@@ -83,70 +113,67 @@ export function exportWord(
       }
 
       body += `<li>${escapeHtml(line.substring(2))}</li>`;
+
       continue;
     }
 
-    // Nummering
-    if (/^\d+\./.test(line)) {
-      if (inList) {
-        body += "</ul>";
-        inList = false;
-      }
+    //---------------------------------
+    // NORMALE TEKST
+    //---------------------------------
 
-      body += `<p class="step"><strong>${escapeHtml(line)}</strong></p>`;
-      continue;
-    }
-
-    // Gewone tekst
-    if (inList) {
-      body += "</ul>";
-      inList = false;
-    }
+    closeList();
 
     body += `<p>${escapeHtml(line)}</p>`;
   }
 
-  if (inList) {
-    body += "</ul>";
-  }
+  closeList();
 
-
-// screenshots
+  //---------------------------------
+  // SCREENSHOTS
+  //---------------------------------
 
   let screenshots = "";
 
-  if (images.length > 0) {
-    screenshots += `<h1>${
-      language === "nl" ? "Screenshots" : "Screenshots"
-    }</h1>`;
+  if (images.length) {
+    screenshots += `
+    <div class="chapter">
+        <h1>${
+          language === "nl"
+            ? "Screenshots"
+            : "Screenshots"
+        }</h1>
+    `;
 
-    images.forEach((img, index) => {
+    images.forEach((img, i) => {
       screenshots += `
-      <div class="screenshot">
-          <h2>${
-            language === "nl"
-              ? `Screenshot ${index + 1}`
-              : `Screenshot ${index + 1}`
-          }</h2>
+      <div class="image-page">
+
+          <h2>Screenshot ${i + 1}</h2>
 
           <img src="${img.dataUrl}" />
 
-          <p class="caption">${escapeHtml(img.name)}</p>
+          <div class="caption">
+              ${escapeHtml(img.name)}
+          </div>
+
       </div>
       `;
     });
+
+    screenshots += "</div>";
   }
 
-
-// html
+  //---------------------------------
+  // HTML
+  //---------------------------------
 
   const html = `
 <!DOCTYPE html>
 
 <html
-xmlns:o='urn:schemas-microsoft-com:office:office'
-xmlns:w='urn:schemas-microsoft-com:office:word'
-xmlns='http://www.w3.org/TR/REC-html40'>
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
 
 <head>
 
@@ -156,83 +183,160 @@ xmlns='http://www.w3.org/TR/REC-html40'>
 
 <style>
 
-body{
-    font-family:Calibri,Arial,sans-serif;
-    color:#1e293b;
-    margin:40px;
-    line-height:1.5;
+@page{
+    size:A4;
+    margin:2cm;
 }
 
-.header{
+body{
+
+    font-family:Calibri;
+    font-size:11pt;
+    color:#1e293b;
+    line-height:1.55;
+}
+
+.cover{
+
     background:#2563eb;
     color:white;
-    padding:20px;
-    margin-bottom:30px;
+    padding:35px;
+    margin-bottom:35px;
 }
 
-.header h1{
-    margin:0;
-    font-size:28px;
+.cover h1{
+
     color:white;
+    font-size:28pt;
+    margin:0;
 }
 
-.subtitle{
-    margin-top:6px;
-    font-size:12px;
-    opacity:.9;
+.cover p{
+
+    color:white;
+    margin-top:8px;
+    font-size:12pt;
 }
 
-h1{
-    color:#2563eb;
-    border-bottom:3px solid #2563eb;
-    padding-bottom:6px;
-    margin-top:30px;
-}
+.chapter{
 
-h2{
-    color:#1e40af;
-    margin-top:22px;
-}
-
-p{
-    margin:8px 0;
-}
-
-.step{
-    margin-top:16px;
-}
-
-ul{
-    margin-left:24px;
-}
-
-li{
-    margin-bottom:6px;
-}
-
-.screenshot{
     page-break-before:always;
 }
 
-img{
+.chapter:first-of-type{
+
+    page-break-before:auto;
+}
+
+h1{
+
+    font-size:22pt;
+    color:#2563eb;
+
+    border-bottom:3px solid #2563eb;
+
+    padding-bottom:6px;
+
+    margin-bottom:18px;
+}
+
+h2{
+
+    color:#1d4ed8;
+
+    font-size:16pt;
+
+    margin-top:24px;
+
+    margin-bottom:8px;
+}
+
+.step{
+
+    margin-top:18px;
+
+    margin-bottom:8px;
+}
+
+.step-number{
+
+    color:#2563eb;
+
+    font-size:13pt;
+
+    font-weight:bold;
+}
+
+.step-title{
+
+    font-size:12pt;
+
+    font-weight:bold;
+
+    margin-top:3px;
+}
+
+p{
+
+    margin-top:6px;
+
+    margin-bottom:10px;
+
+    text-align:justify;
+}
+
+ul{
+
+    margin-top:8px;
+
+    margin-left:25px;
+}
+
+li{
+
+    margin-bottom:6px;
+}
+
+.image-page{
+
+    page-break-before:always;
+}
+
+.image-page img{
+
+    display:block;
+
     width:100%;
+
+    height:auto;
+
     border:1px solid #CBD5E1;
-    border-radius:6px;
-    margin-top:15px;
+
+    margin-top:10px;
 }
 
 .caption{
-    color:#64748b;
-    font-size:10pt;
+
     text-align:center;
+
+    color:#64748b;
+
+    font-size:9pt;
+
+    margin-top:8px;
 }
 
 .footer{
+
     margin-top:40px;
-    font-size:10px;
-    color:#64748b;
+
+    padding-top:12px;
+
     border-top:1px solid #CBD5E1;
-    padding-top:10px;
+
+    color:#64748b;
+
+    font-size:9pt;
 }
 
 </style>
@@ -241,15 +345,17 @@ img{
 
 <body>
 
-<div class="header">
+<div class="cover">
 
 <h1>${documentTitle}</h1>
 
-<div class="subtitle">
+<p>
 
-${escapeHtml(discipline)} • ${escapeHtml(environment)}
+${escapeHtml(discipline)}
+&nbsp;&nbsp;•&nbsp;&nbsp;
+${escapeHtml(environment)}
 
-</div>
+</p>
 
 </div>
 
@@ -272,8 +378,6 @@ ${
 </html>
 `;
 
-
-// download
   const blob = new Blob(["\ufeff", html], {
     type: "application/msword",
   });
@@ -283,9 +387,7 @@ ${
   const a = document.createElement("a");
 
   a.href = url;
-
   a.download = fileName.replace(/\s+/g, "-").toLowerCase();
-
   a.click();
 
   URL.revokeObjectURL(url);

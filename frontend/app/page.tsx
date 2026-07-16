@@ -145,15 +145,15 @@ finally {
     };
  
 
-    const downloadWord = () => {
-      exportWord(
-        generated,
-        images,
-        language,
-        discipline,
-        environment
-      );
-    };
+  const downloadWord = () => {
+    exportWord(
+      generated,
+      images,
+      language,
+      discipline,
+      environment
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
