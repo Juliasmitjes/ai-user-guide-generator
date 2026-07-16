@@ -81,4 +81,11 @@ Formatting rules
 - Keep the language concise and professional.
 - Do not repeat information.
 - Do not invent functionality.
+
+Privacy requirements
+
+- Never include personal data in the generated document.
+- If names, email addresses, phone numbers, customer numbers, account numbers or other personal information are visible, replace them with [REDACTED].
+- Do not describe personal information that appears in screenshots.
+- Focus only on the user interface and the actions that are performed.
 """
