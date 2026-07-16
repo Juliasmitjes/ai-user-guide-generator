@@ -7,3 +7,7 @@
 {"timestamp":"00:16:45.084","source":"Server","level":"LOG","message":"✓ Compiled in 54ms"}
 {"timestamp":"00:18:57.434","source":"Server","level":"LOG","message":"✓ Compiled in 73ms"}
 {"timestamp":"00:31:06.100","source":"Server","level":"LOG","message":"✓ Compiled in 79ms"}
+{"timestamp":"00:44:01.067","source":"Server","level":"LOG","message":"✓ Compiled in 332ms"}
+{"timestamp":"00:44:14.689","source":"Server","level":"LOG","message":"✓ Compiled in 243ms"}
+{"timestamp":"00:45:10.266","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:45:46.682","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}

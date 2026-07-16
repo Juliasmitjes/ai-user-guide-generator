@@ -101,7 +101,7 @@ export default function Home() {
     formData.append("discipline", discipline);
     formData.append("environment", environment);
     images.forEach((image) => {
-      formData.append("screenshots", image.file);
+    formData.append("screenshots", image.file);
     });
 
     const response = await fetch(

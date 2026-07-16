@@ -3,7 +3,7 @@ from app.api.routes import router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title="AI User Guide Generator API",
+    title="Work instructions generator API",
     version="1.0.0"
 )
 
