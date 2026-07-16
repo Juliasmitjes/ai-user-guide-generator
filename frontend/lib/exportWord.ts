@@ -80,6 +80,7 @@ export function exportWord(
     // STAP
     //---------------------------------
 
+    const stepLabel = language === "nl" ? "Stap" : "Step";
     const step = line.match(/^(\d+)\.\s*(.*)$/);
 
     if (step) {
@@ -88,9 +89,9 @@ export function exportWord(
       body += `
       <div class="step">
 
-          <div class="step-number">
-              Stap ${step[1]}
-          </div>
+            <div class="step-number">
+                ${stepLabel} ${step[1]}
+            </div>
 
           <div class="step-title">
               ${escapeHtml(step[2])}
