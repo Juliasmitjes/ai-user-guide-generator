@@ -51,7 +51,7 @@ interface UploadedImage {
 
 export default function Home() {
 
-  const [language, setLanguage] = useState<string>("English");
+  const [language, setLanguage] = useState<string>("");
   const [discipline, setDiscipline] = useState<string>("");
   const [environment, setEnvironment] = useState<string>("");
   const [images, setImages] = useState<UploadedImage[]>([]);
@@ -221,10 +221,10 @@ finally {
           <div className="grid gap-6 sm:grid-cols-3">
 
             <div className="space-y-3">
-              <Label htmlFor="discipline">Language</Label>
+              <Label htmlFor="language">Language</Label>
               <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger id="discipline">
-                  <SelectValue placeholder="Select a discipline" />
+                <SelectTrigger id="language">
+                  <SelectValue placeholder="Select a language" />
                 </SelectTrigger>
                 <SelectContent>
                   {LANGUAGES.map((l) => (
