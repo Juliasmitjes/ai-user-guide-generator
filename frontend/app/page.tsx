@@ -14,6 +14,9 @@ import {
 } from "@/components/select";
 import { showToast } from "nextjs-toast-notify";
 
+const LANGUAGES = [
+  { value: "English", label: "English" },
+  { value: "Dutch", label: "Dutch" }]
 
 const DISCIPLINES = [
   "Doctor",
@@ -48,6 +51,7 @@ interface UploadedImage {
 
 export default function Home() {
 
+  const [language, setLanguage] = useState<string>("English");
   const [discipline, setDiscipline] = useState<string>("");
   const [environment, setEnvironment] = useState<string>("");
   const [images, setImages] = useState<UploadedImage[]>([]);
@@ -214,8 +218,27 @@ finally {
         </header>
 
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="space-y-2">
+          <div className="grid gap-6 sm:grid-cols-3">
+
+            <div className="space-y-3">
+              <Label htmlFor="discipline">Language</Label>
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger id="discipline">
+                  <SelectValue placeholder="Select a discipline" />
+                </SelectTrigger>
+                <SelectContent>
+                  {LANGUAGES.map((l) => (
+                    <SelectItem key={l.value} value={l.value}>
+                      {l.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+
+
+            <div className="space-y-3">
               <Label htmlFor="discipline">Discipline</Label>
               <Select value={discipline} onValueChange={setDiscipline}>
                 <SelectTrigger id="discipline">
@@ -231,7 +254,7 @@ finally {
               </Select>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="environment">Work environment</Label>
               <Select value={environment} onValueChange={setEnvironment}>
                 <SelectTrigger id="environment">
