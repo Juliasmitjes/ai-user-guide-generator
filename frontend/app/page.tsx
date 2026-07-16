@@ -87,13 +87,16 @@ export default function Home() {
     console.log("Generate clicked");
 
 
-    if (!discipline || !environment) {
-      showToast.error("Please select a discipline and a work environment.");
+    if (!language || !discipline || !environment) {
+      showToast.error("Please select a language, discipline and work environment."); 
       return;
     }
     setLoading(true);
-    try { const formData = new FormData();
+    try 
+    
+    { const formData = new FormData();
 
+    formData.append("language", language);
     formData.append("discipline", discipline);
     formData.append("environment", environment);
     images.forEach((image) => {

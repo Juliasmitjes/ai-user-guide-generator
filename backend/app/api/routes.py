@@ -10,11 +10,13 @@ service = OpenAIService()
 
 @router.post("/generate-guide")
 async def generate_guide( 
+    language: str = Form(...),
     discipline: str = Form(...),
     environment: str = Form(...),
     screenshots: List[UploadFile] = File(...)):
 
     request = GuideRequest(
+        language=language,
         discipline=discipline,
         environment=environment,
     )
@@ -26,7 +28,8 @@ async def generate_guide(
     return {
         "status": "success",
         "manual": result["manual"],
-         "discipline": discipline,
+        "language": language,
+        "discipline": discipline,
         "environment": environment,
         "screenshots": [file.filename for file in screenshots],
     }
