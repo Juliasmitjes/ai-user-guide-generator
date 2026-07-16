@@ -1,19 +1,3 @@
-import {
-  AlignmentType,
-  Document,
- HeadingLevel,
-  ImageRun,
-  Packer,
-  PageBreak,
-  Paragraph,
-  TextRun,
-} from "docx";
-
-import { saveAs } from "file-saver";
-
-np
-
-
 type ImageType = {
   name: string;
   dataUrl: string;
