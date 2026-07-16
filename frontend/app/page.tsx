@@ -2,9 +2,10 @@
 
 import { useState, useRef } from "react";
 import { Upload, FileText, FileDown, X, Loader2 } from "lucide-react";
-import jsPDF from "jspdf";
 import { Button } from "@/components/button";
 import { Label } from "@/components/label";
+import { exportPdf } from "../lib/exportPdf";
+import { exportWord } from "../lib/exportWord";
 import {
   Select,
   SelectContent,
@@ -134,169 +135,25 @@ finally {
 }};
 
     const downloadPdf = () => {
-    if (!generated) return;
+      exportPdf(
+        generated,
+        images,
+        language,
+        discipline,
+        environment
+      );
+    };
+ 
 
-    const doc = new jsPDF({ unit: "pt", format: "a4" });
-
-    const marginX = 48;
-    let y = 64;
-
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const maxWidth = doc.internal.pageSize.getWidth() - marginX * 2;
-
-    const documentTitle =
-      language === "nl" ? "Werkinstructie" : "Work Instruction";
-
-    const screenshotError =
-      language === "nl"
-        ? "(Screenshot kon niet worden toegevoegd)"
-        : "(Screenshot could not be embedded)";
-
-    const fileName =
-      language === "nl"
-        ? `werkinstructie-${discipline}-${environment}.pdf`
-        : `work-instruction-${discipline}-${environment}.pdf`;
-
-    // Titel
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text(documentTitle, marginX, y);
-    y += 28;
-
-    // Inhoud
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-
-
-    const lines = generated.replace(/^# .*\n?/m, "").split("\n");
-
-    lines.forEach((line) => {
-      const wrapped = doc.splitTextToSize(line || " ", maxWidth);
-
-      wrapped.forEach((w: string) => {
-        if (y > pageHeight - 60) {
-          doc.addPage();
-          y = 64;
-        }
-
-        doc.text(w, marginX, y);
-        y += 16;
-      });
-    });
-
-    // Screenshots toevoegen
-    images.forEach((img) => {
-      doc.addPage();
-      y = 48;
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(12);
-      doc.text(img.name, marginX, y);
-      y += 16;
-
-      try {
-        const format = img.dataUrl.includes("image/png") ? "PNG" : "JPEG";
-        doc.addImage(img.dataUrl, format, marginX, y, maxWidth, 0);
-      } catch {
-        doc.setFont("helvetica", "normal");
-        doc.text(screenshotError, marginX, y + 20);
-      }
-    });
-
-    doc.save(fileName.replace(/\s+/g, "-").toLowerCase());
-  };
-
-  const downloadWord = () => {
-    if (!generated) return;
-
-    const documentTitle =
-      language === "nl" ? "Werkinstructie" : "Work Instruction";
-
-    const fileName =
-      language === "nl"
-        ? `werkinstructie-${discipline}-${environment}.doc`
-        : `work-instruction-${discipline}-${environment}.doc`;
-
-    // Verwijder de eerste AI-titel (# ...)
-    const content = generated.replace(/^# .*\n?/m, "");
-
-    const bodyHtml = content
-      .split("\n")
-      .map((line) =>
-        line.trim()
-          ? `<p>${escapeHtml(line)}</p>`
-          : "<p>&nbsp;</p>"
-      )
-      .join("");
-
-    const imagesHtml = images
-      .map(
-        (img) => `
-          <h2>${escapeHtml(img.name)}</h2>
-          <p>
-            <img src="${img.dataUrl}" style="max-width:600px;height:auto;" />
-          </p>
-        `
-      )
-      .join("");
-
-    const html = `
-  <!DOCTYPE html>
-  <html xmlns:o="urn:schemas-microsoft-com:office:office"
-        xmlns:w="urn:schemas-microsoft-com:office:word"
-        xmlns="http://www.w3.org/TR/REC-html40">
-
-  <head>
-  <meta charset="utf-8">
-  <title>${documentTitle}</title>
-
-  <style>
-  body{
-      font-family:Calibri,Arial,sans-serif;
-      font-size:11pt;
-      line-height:1.4;
-  }
-
-  h1{
-      font-size:22pt;
-  }
-
-  h2{
-      margin-top:24px;
-  }
-
-  img{
-      max-width:600px;
-      height:auto;
-  }
-  </style>
-
-  </head>
-
-  <body>
-
-  <h1>${documentTitle}</h1>
-
-  ${bodyHtml}
-
-  ${imagesHtml}
-
-  </body>
-  </html>`;
-
-    const blob = new Blob(["\ufeff", html], {
-      type: "application/msword",
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName.replace(/\s+/g, "-").toLowerCase();
-    a.click();
-
-    URL.revokeObjectURL(url);
-  };
+    const downloadWord = () => {
+      exportWord(
+        generated,
+        images,
+        language,
+        discipline,
+        environment
+      );
+    };
 
   return (
     <div className="min-h-screen bg-background">
