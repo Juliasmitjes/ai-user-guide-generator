@@ -38,14 +38,6 @@ Provide a short and descriptive title.
 
 Explain the goal of the demonstrated process.
 
-# Prerequisites
-
-List only prerequisites that are visible or explicitly provided.
-If none are visibl:
-- Write "None visible" if the language is English
-- WWrite "Geen voorwaarden" if the language is Dutch.
-Translate the title "Prerequisites" into "Voorwaarden" if the selected language is Dutch.
-
 # Procedure
 
 Describe the process step by step:
