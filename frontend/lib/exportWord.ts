@@ -372,8 +372,8 @@ ${screenshots}
 
 ${
   language === "nl"
-    ? "Gegenereerd met AI Manual Generator"
-    : "Generated with AI Manual Generator"
+    ? "Gegenereerd met AI werk instuctie generator"
+    : "Generated with AI work instruction generator"
 }
 
 </div>
