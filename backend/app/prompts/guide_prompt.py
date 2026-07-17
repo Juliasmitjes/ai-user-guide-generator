@@ -41,19 +41,22 @@ Explain the goal of the demonstrated process.
 # Prerequisites
 
 List only prerequisites that are visible or explicitly provided.
-If none are visible, write:
-- None visible.
+If none are visibl:
+- Write "None visible" if the language is English
+- WWrite "Geen voorwaarden" if the language is Dutch.
 Translate the title "Prerequisites" into "Voorwaarden" if the selected language is Dutch.
 
 # Procedure
 
-Describe the process step by step. 
+Describe the process step by step:
+- Write "Step 1", "Step 2", etc. for each step. if the language is English
+- Write "Stap 1", "Stap 2", etc. for each step if the language is Dutch
 Reference the screenshots as Screenshot 1, Screenshot 2, Screenshot 3, etc.
 Treat each new screenshot as the next step in the workflow unless the images clearly indicate otherwise.
 
 For every step:
 
-- Use numbered steps.
+- Use numbered steps. 
 - Mention the visible button, menu, icon or field.
 - Explain exactly what the user should do.
 - If a screenshot shows the result of a previous action, describe it as an observed result.
@@ -63,14 +66,15 @@ For every step:
 
 Only provide tips that can be derived from the screenshots.
 If none exist, write:
-- No additional tips available.
+- "No additional tips available" if the language is English
+- "Geen aanvullende tips beschikbaar" if the language is Dutch.
 
 # FAQ
 
-Provide at most three questions.
-
-Only answer questions that can be answered from the screenshots.
-
+- Provide at most three questions.
+- Only answer questions that can be answered from the screenshots.
+- Use a numbered list (1., 2., 3.).
+- Do NOT prefix questions with "Step" or "Stap".
 
 Formatting rules
 
